@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
+import dietRouter from "./routes/diet.route.js";
 
 
 dotenv.config();
@@ -22,5 +23,8 @@ mongoose.connect(mongoConnect)
 .then(()=>console.log('connected to the db'))
 .catch((err)=>console.log(err));
 
-// app routes
+// auth routes
 app.use('/api/v1/auth', authRouter);
+
+// diet routes 
+app.use('/api/v1/diet', dietRouter);
