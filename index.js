@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
 import dietRouter from "./routes/diet.route.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 // connection to the port 
 const port = process.env.PORT || 3000;

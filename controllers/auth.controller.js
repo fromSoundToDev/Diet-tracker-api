@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 const register= async (req, res)=>{
     const {userName, email,age, password} = req.body;
@@ -33,11 +34,23 @@ const login = async (req, res)=>{
         return res.status(400).json({message:"wrong credentials"});
     }
     const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
-    return  res.header('authorization', token).status(200).json({message:"login successful"});
 
+    res.cookie("token", token, {
+        httpOnly: true,  // Empêche l'accès au cookie via JavaScript (protection XSS)
+        secure: false,    // Active uniquement en HTTPS (désactiver en développement)
+        sameSite: "Strict", // Protège contre les attaques CSRF
+        maxAge: 3600000  // Expire dans 1h (en millisecondes)
+      });
+    return  res.status(200).json({message:"login successful"});
+
+}
+
+const logout = async (req, res)=>{
+    res.clearCookie("token");
+    return res.status(200).json({message:"logout successful"});
 }
 
 
 
 
-export {register, login};
+export {register, login, logout};

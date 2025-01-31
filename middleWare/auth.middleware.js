@@ -1,6 +1,6 @@
-
+import jwt from 'jsonwebtoken';
 const protect = async (req, res, next) => {
-    const token = req.headers.autorization;
+    const token = req.cookies.token;
     if(!token){
         return res.status(401).json({message:"unauthorized"});
     }
@@ -13,3 +13,5 @@ const protect = async (req, res, next) => {
         return res.status(500).json({message:"internal server error"});
     }
 }
+
+export {protect};

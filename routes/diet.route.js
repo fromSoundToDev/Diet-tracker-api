@@ -1,5 +1,6 @@
 import Router from 'express';
 import { allDiets, createDiet, deleteDiet, singleDiet, updateDiet } from '../controllers/deit.controller.js';
+import { protect } from '../middleWare/auth.middleware.js';
 
 const dietRouter = Router();
 
@@ -10,7 +11,7 @@ dietRouter.get('/diets', allDiets);
 dietRouter.get('/single-diet/:id',singleDiet);
 
 // create a diet 
-dietRouter.post('/create-diet',createDiet);
+dietRouter.post('/create-diet',protect,createDiet);
 
 // update diet 
 dietRouter.put('/update-diet/:id', updateDiet);
