@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const dietSchema = new mongoose.Schema({
-    dietName:{
+    name:{
         type:String,
         required:[true,'food name is required'],
         unique:true
@@ -12,7 +12,7 @@ const dietSchema = new mongoose.Schema({
         type:Number,
         
     },
-    proteine:{
+    protein:{
         required:[true,'proteine is required'],
         type:Number
     },
@@ -20,7 +20,7 @@ const dietSchema = new mongoose.Schema({
         required:[true,'carbs is required'],
         type:Number
     },
-    fats:{
+    fat:{
         required:[true,'fats is required'],
         type:Number
     }

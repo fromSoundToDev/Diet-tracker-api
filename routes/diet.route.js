@@ -7,15 +7,15 @@ const dietRouter = Router();
 dietRouter.get('/diets', allDiets);
 
 // get a sigle diet
-dietRouter.get('/diet/:id',singleDiet);
+dietRouter.get('/single-diet/:id',singleDiet);
 
 // create a diet 
-dietRouter.post('diet',createDiet);
+dietRouter.post('/create-diet',createDiet);
 
 // update diet 
-dietRouter.put('/diet/:id', updateDiet);
+dietRouter.put('/update-diet/:id', updateDiet);
 
 // delete diet
-dietRouter.delete('diet/:id',deleteDiet );
+dietRouter.delete('/delete-diet/:id',deleteDiet );
 
 export default dietRouter

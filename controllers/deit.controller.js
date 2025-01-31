@@ -4,7 +4,7 @@ const singleDiet = async (req,res)=>{
 const  dietId = req.params.id;
 
     try{
-        const diet = await dietModel.find(dietId);
+        const diet = await dietModel.findOne({  _id:dietId});
         if(!diet){
             return res.status(404).json({message:"diet not found"});
         }
@@ -17,11 +17,13 @@ const  dietId = req.params.id;
 
 // create a diet
 const createDiet = async (req,res)=>{
-    const {name,description,calories,protein,carbs,fat}= req.body;
-    if(!name || !description || !calories || !protein || !carbs || !fat){
+   
+    const {name,calories,protein,carbs,fat}= req.body;
+    if(!name || !calories || !protein || !carbs || !fat){
         return res.status(400).json({message:"please fill in all fields"});
     }
-    const diet = {name,description,calories,protein,carbs,fat};
+    const diet = {name,calories,protein,carbs,fat};
+    console.log(diet);
     try{
         const newDiet = await dietModel.create(diet);
         newDiet.save();
@@ -35,14 +37,14 @@ const createDiet = async (req,res)=>{
 // update diet
 const updateDiet = async (req,res)=>{
     const dietId = req.params.id;
-    const {name,description,calories,protein,carbs,fat}= req.body;
-    if(!name || !description || !calories || !protein || !carbs || !fat){
+    const {name,calories,protein,carbs,fat}= req.body;
+    if(!name || !calories || !protein || !carbs || !fat){
         return res.status(400).json({message:"please fill in all fields"});
     }
-    const diet = {name,description,calories,protein,carbs,fat};
+    const diet = {name,calories,protein,carbs,fat};
     try{
         const updatedDiet = await dietModel.findByIdAndUpdate(dietId,diet,{new:true});
-        return res.status(200).json({message:"diet updated successfully"});
+        return res.status(200).json({message:"diet updated successfully",updatedDiet});
     }catch(err){
         console.log(err);
         return res.status(500).json({message:"internal server error"});
